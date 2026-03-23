@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}HealthAssist AI — Your Smart Health Companion{% endblock %}
+{% block content %}
+<section class="landing-hero">
+  <div>
+    <div class="hero-badge">
+      <i class="fa-solid fa-star"></i> AI-Powered Healthcare Platform
+    </div>
+    <h1>
+      Your Smart<br>
+      <span class="gradient-text">Health Companion</span>
+    </h1>
+    <p>Get instant AI-powered health insights, symptom analysis, skin disease detection, and expert guidance — all in one place.</p>
+    <div class="hero-btns">
+      <a href="{% url 'register' %}" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-user-plus"></i> Get Started Free
+      </a>
+      <a href="{% url 'login' %}" class="btn btn-secondary btn-lg">
+        <i class="fa-solid fa-right-to-bracket"></i> Sign In
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="hero-features">
+  <div class="hero-feature-card">
+    <span class="feat-icon">🩺</span>
+    <h3>Symptom Checker</h3>
+    <p>Enter your symptoms and get instant AI-driven disease predictions with clear next steps.</p>
+  </div>
+  <div class="hero-feature-card">
+    <span class="feat-icon">🔬</span>
+    <h3>Skin Disease AI</h3>
+    <p>Upload a photo of your skin and get instant analysis with confidence score and precautions.</p>
+  </div>
+  <div class="hero-feature-card">
+    <span class="feat-icon">🤖</span>
+    <h3>AI Health Chatbot</h3>
+    <p>Chat with our AI for medical questions, health tips, diet advice, and emergency guidance.</p>
+  </div>
+  <div class="hero-feature-card">
+    <span class="feat-icon">📅</span>
+    <h3>Book Appointment</h3>
+    <p>Easily schedule doctor consultations with our smart booking system. Confirmed instantly.</p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% block title %}Symptom Checker — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <h1><span class="gradient-text">🩺 Symptom Checker</span></h1>
+  <p>Add your symptoms below and our AI will analyze them and suggest possible conditions.</p>
+</div>
+
+<div class="sc-wrap">
+  <!-- Input Panel -->
+  <div class="card" style="padding:0;">
+    <div class="card-header">
+      <div class="card-icon icon-blue">🩺</div>
+      <div><div class="card-title">Enter Symptoms</div><div class="card-subtitle">Select all that apply</div></div>
+    </div>
+    <div class="card-body" style="padding-top:0;">
+      <div class="autocomplete-wrap">
+        <input type="text" id="symptomInput" class="form-input" placeholder="Type a symptom (e.g. fever, headache...)" autocomplete="off"/>
+        <div class="autocomplete-list" id="autocompleteList" style="display:none;"></div>
+      </div>
+
+      <div class="symptom-tags" id="symptomTags">
+        <span style="color:var(--text-faint);font-size:0.8rem;align-self:center;">No symptoms added yet — type above to add</span>
+      </div>
+
+      <button class="btn btn-primary btn-full" onclick="analyzeSymptoms()" id="analyzeBtn" style="margin-top:4px;">
+        <i class="fa-solid fa-brain"></i> Analyze Symptoms
+      </button>
+      <button class="btn btn-secondary btn-sm btn-full" onclick="clearSymptoms()" style="margin-top:10px;">
+        <i class="fa-solid fa-trash"></i> Clear All
+      </button>
+    </div>
+  </div>
+
+  <!-- Results Panel -->
+  <div>
+    <div class="card result-panel" id="resultPanel" style="padding:0;">
+      <div class="card-header">
+        <div class="card-icon icon-green">🔍</div>
+        <div><div class="card-title">AI Analysis Result</div><div class="card-subtitle">Based on entered symptoms</div></div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span id="resultIcon" style="font-size:2.5rem;"></span>
+          <div>
+            <h2 id="resultDisease" style="font-size:1.2rem;font-weight:800;margin-bottom:6px;"></h2>
+            <span class="severity-badge" id="severityBadge"></span>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--text-muted);margin-bottom:4px;">
+            <span>Confidence Level</span>
+            <span id="confidenceText">0%</span>
+          </div>
+          <div class="confidence-bar"><div class="confidence-fill" id="confidenceFill" style="width:0%"></div></div>
+        </div>
+        <p id="resultDesc" style="font-size:0.875rem;color:var(--text-muted);margin-bottom:16px;line-height:1.7;"></p>
+        <div>
+          <div style="font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Recommended Next Steps</div>
+          <ul class="next-steps-list" id="nextStepsList"></ul>
+        </div>
+        <div style="margin-top:18px;padding:12px;background:rgba(252,129,129,0.06);border-radius:var(--radius-xs);border:1px solid rgba(252,129,129,0.15);font-size:0.78rem;color:var(--text-muted);">
+          ⚠️ This is AI-generated information, not a medical diagnosis. Always consult a qualified doctor.
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="loadingPanel" style="padding:60px 24px;text-align:center;display:none;">
+      <div class="spinner"></div>
+      <p style="color:var(--text-muted);font-size:0.875rem;">Analyzing symptoms...</p>
+    </div>
+
+    <div class="card" id="emptyResultPanel" style="padding:60px 24px;">
+      <div class="empty-state">
+        <span class="empty-icon">🔍</span>
+        <h3>No Analysis Yet</h3>
+        <p>Add at least one symptom and click "Analyze Symptoms" to get AI predictions.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ALL_SYMPTOMS = {{ all_symptoms|safe }};
+let selectedSymptoms = [];
+
+const symptomInput = document.getElementById('symptomInput');
+const autocompleteList = document.getElementById('autocompleteList');
+const symptomTagsEl = document.getElementById('symptomTags');
+
+symptomInput.addEventListener('input', () => {
+  const val = symptomInput.value.toLowerCase().trim();
+  if (!val) { autocompleteList.style.display = 'none'; return; }
+  const matches = ALL_SYMPTOMS.filter(s => s.includes(val) && !selectedSymptoms.includes(s));
+  if (!matches.length) { autocompleteList.style.display = 'none'; return; }
+  autocompleteList.innerHTML = matches.slice(0, 8).map(s => `<div class="autocomplete-item" onclick="addSymptom('${s}')">${s}</div>`).join('');
+  autocompleteList.style.display = 'block';
+});
+
+symptomInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const val = symptomInput.value.toLowerCase().trim();
+    if (val && !selectedSymptoms.includes(val)) addSymptom(val);
+    e.preventDefault();
+  }
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.autocomplete-wrap')) autocompleteList.style.display = 'none';
+});
+
+function addSymptom(s) {
+  if (selectedSymptoms.includes(s)) return;
+  selectedSymptoms.push(s);
+  symptomInput.value = '';
+  autocompleteList.style.display = 'none';
+  renderTags();
+}
+
+function removeSymptom(s) {
+  selectedSymptoms = selectedSymptoms.filter(x => x !== s);
+  renderTags();
+}
+
+function clearSymptoms() {
+  selectedSymptoms = [];
+  renderTags();
+}
+
+function renderTags() {
+  if (!selectedSymptoms.length) {
+    symptomTagsEl.innerHTML = '<span style="color:var(--text-faint);font-size:0.8rem;align-self:center;">No symptoms added yet — type above to add</span>';
+    return;
+  }
+  symptomTagsEl.innerHTML = selectedSymptoms.map(s => `<span class="stag">${s}<button onclick="removeSymptom('${s}')" title="Remove">✕</button></span>`).join('');
+}
+
+async function analyzeSymptoms() {
+  if (!selectedSymptoms.length) {
+    showToast('Please add at least one symptom.', 'error');
+    return;
+  }
+  document.getElementById('resultPanel').classList.remove('visible');
+  document.getElementById('emptyResultPanel').style.display = 'none';
+  document.getElementById('loadingPanel').style.display = 'block';
+
+  try {
+    const res = await fetch('{% url "symptom_predict" %}', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken')},
+      body: JSON.stringify({symptoms: selectedSymptoms})
+    });
+    const data = await res.json();
+    document.getElementById('loadingPanel').style.display = 'none';
+    if (data.success) displayResult(data);
+    else showToast('Analysis failed. Try again.', 'error');
+  } catch (e) {
+    document.getElementById('loadingPanel').style.display = 'none';
+    document.getElementById('emptyResultPanel').style.display = 'block';
+    showToast('Network error. Check connection.', 'error');
+  }
+}
+
+function displayResult(d) {
+  document.getElementById('resultIcon').textContent = d.icon;
+  document.getElementById('resultDisease').textContent = d.disease;
+  const sev = document.getElementById('severityBadge');
+  const cls = {mild:'sev-mild',moderate:'sev-moderate',high:'sev-high',critical:'sev-critical'}[d.severity] || 'sev-unknown';
+  sev.className = `severity-badge ${cls}`;
+  sev.textContent = d.severity.toUpperCase();
+  document.getElementById('confidenceText').textContent = `${d.confidence}%`;
+  setTimeout(() => { document.getElementById('confidenceFill').style.width = `${d.confidence}%`; }, 100);
+  document.getElementById('resultDesc').textContent = d.description;
+  document.getElementById('nextStepsList').innerHTML = d.next_steps.map(s => `<li>${s}</li>`).join('');
+  const panel = document.getElementById('resultPanel');
+  panel.classList.add('visible');
+  panel.classList.add('fade-in');
+}
+</script>
+{% endblock %}

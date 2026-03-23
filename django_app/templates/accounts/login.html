@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Login — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="card auth-card">
+    <div class="auth-body">
+      <div class="auth-brand">
+        <span class="brand-icon">🏥</span>
+        <h1>Welcome Back</h1>
+        <p>Sign in to your HealthAssist AI account</p>
+      </div>
+
+      {% if form.non_field_errors %}
+      <div class="error-box"><i class="fa-solid fa-circle-xmark"></i> {{ form.non_field_errors }}</div>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="form-label" for="id_username"><i class="fa-solid fa-user"></i> Username</label>
+          <input id="id_username" class="form-input" type="text" name="username" placeholder="Your username" required autofocus autocomplete="username"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="id_password"><i class="fa-solid fa-lock"></i> Password</label>
+          <input id="id_password" class="form-input" type="password" name="password" placeholder="Your password" required autocomplete="current-password"/>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">
+          <i class="fa-solid fa-right-to-bracket"></i> Sign In
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="{% url 'register' %}">Create one free</a>
+      </div>
+
+      <div style="margin-top:20px;padding:14px;background:rgba(79,172,254,0.06);border-radius:var(--radius-xs);border:1px solid rgba(79,172,254,0.15);font-size:0.78rem;color:var(--text-muted);">
+        <strong style="color:var(--accent);">💡 Tip:</strong> Register first to create your account, then log in.
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

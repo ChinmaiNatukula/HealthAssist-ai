@@ -1,0 +1,146 @@
+{
+  "fungal_infection": {
+    "name": "Fungal Infection",
+    "causes": ["Weakened immune system", "Warm and moist environments", "Contact with infected person/animal", "Poor hygiene", "Use of antibiotics disrupting natural flora"],
+    "symptoms": ["Itching", "Skin rash", "Nodal skin eruptions", "Discolored skin patches", "Scaling or peeling skin"],
+    "precautions": ["Keep skin clean and dry", "Avoid sharing personal items (towels, shoes)", "Wear breathable fabrics", "Avoid walking barefoot in public areas", "Change socks daily"],
+    "basic_treatment": ["Antifungal creams or powders (clotrimazole, miconazole)", "Oral antifungal medications if severe", "Keep affected area clean and dry"],
+    "when_to_see_doctor": "If rash spreads rapidly, doesn't respond to OTC treatment after 2 weeks, or is accompanied by fever."
+  },
+  "allergy": {
+    "name": "Allergy",
+    "causes": ["Pollen, dust mites, pet dander", "Food allergens (nuts, shellfish, dairy)", "Insect stings", "Medications", "Latex"],
+    "symptoms": ["Sneezing", "Runny nose", "Watery eyes", "Itching", "Hives", "Swelling"],
+    "precautions": ["Identify and avoid triggers", "Use air purifiers indoors", "Wear masks in high-pollen environments", "Keep windows closed during high pollen seasons"],
+    "basic_treatment": ["Antihistamines (cetirizine, loratadine)", "Nasal corticosteroid sprays", "Eye drops for eye allergies", "Avoid known allergens"],
+    "when_to_see_doctor": "If you experience difficulty breathing, throat swelling, or symptoms seriously impair daily life."
+  },
+  "gerd": {
+    "name": "GERD (Acid Reflux)",
+    "causes": ["Weak lower esophageal sphincter", "Obesity", "Smoking", "Certain foods (spicy, fatty, caffeine, alcohol)", "Lying down after meals", "Pregnancy"],
+    "symptoms": ["Heartburn", "Regurgitation", "Chest pain", "Difficulty swallowing", "Chronic cough", "Sore throat"],
+    "precautions": ["Eat smaller, more frequent meals", "Avoid lying down within 3 hours of eating", "Elevate head of bed by 6-8 inches", "Maintain healthy weight", "Avoid trigger foods"],
+    "basic_treatment": ["Antacids for immediate relief", "H2 blockers (famotidine)", "Proton pump inhibitors (omeprazole)", "Lifestyle modifications"],
+    "when_to_see_doctor": "If symptoms occur more than twice per week, medication isn't helping, or you have difficulty swallowing."
+  },
+  "diabetes": {
+    "name": "Diabetes",
+    "causes": ["Type 1: Autoimmune destruction of insulin-producing cells", "Type 2: Insulin resistance due to obesity, inactivity, genetics", "Gestational diabetes during pregnancy"],
+    "symptoms": ["Frequent urination", "Excessive thirst", "Unexplained weight loss", "Fatigue", "Blurred vision", "Slow-healing wounds", "Frequent infections"],
+    "precautions": ["Monitor blood glucose regularly", "Follow a balanced, low-glycemic diet", "Exercise at least 30 min/day", "Take medications as prescribed", "Regular foot and eye check-ups"],
+    "basic_treatment": ["Type 1: Insulin therapy", "Type 2: Metformin, lifestyle changes, insulin if needed", "Monitor and control blood pressure and cholesterol"],
+    "when_to_see_doctor": "Immediately if blood sugar is very high (>300 mg/dL), you have severe symptoms, or experience diabetic ketoacidosis signs (vomiting, fruity breath, confusion)."
+  },
+  "hypertension": {
+    "name": "Hypertension (High Blood Pressure)",
+    "causes": ["Genetics and family history", "Sedentary lifestyle", "High-sodium diet", "Obesity", "Smoking and alcohol", "Chronic stress", "Kidney disease"],
+    "symptoms": ["Often silent (no symptoms)", "Headaches", "Dizziness", "Vision problems", "Chest pain", "Nose bleeds in severe cases"],
+    "precautions": ["Reduce salt in diet (<5g/day)", "Exercise regularly", "Maintain healthy weight", "Quit smoking and limit alcohol", "Manage stress through meditation or yoga", "Monitor BP at home"],
+    "basic_treatment": ["ACE inhibitors, Beta-blockers, diuretics, calcium channel blockers (as prescribed)", "Lifestyle modifications are first-line treatment"],
+    "when_to_see_doctor": "If BP consistently reads above 140/90 mmHg, or you have symptoms like severe headache, vision changes, or chest pain."
+  },
+  "migraine": {
+    "name": "Migraine",
+    "causes": ["Hormonal changes", "Stress", "Bright lights or loud sounds", "Sleep disruption", "Certain foods (cheese, chocolate, alcohol)", "Dehydration"],
+    "symptoms": ["Throbbing headache (usually one side)", "Nausea and vomiting", "Sensitivity to light and sound", "Aura (visual disturbances before headache)"],
+    "precautions": ["Identify and avoid personal triggers", "Maintain regular sleep schedule", "Stay hydrated", "Reduce screen time", "Manage stress"],
+    "basic_treatment": ["OTC pain relievers (ibuprofen, aspirin)", "Triptans (prescription)", "Anti-nausea medications", "Rest in quiet, dark room"],
+    "when_to_see_doctor": "If migraines are frequent (3+ per month), last more than 72 hours, or accompanied by high fever, stiff neck, or sudden severe headache."
+  },
+  "malaria": {
+    "name": "Malaria",
+    "causes": ["Plasmodium parasite transmitted by Anopheles mosquito bites"],
+    "symptoms": ["Cyclical fever and chills", "Sweating", "Headache", "Nausea and vomiting", "Muscle pain", "Fatigue"],
+    "precautions": ["Use mosquito nets while sleeping", "Apply insect repellent (DEET-based)", "Wear long sleeves/pants at dusk/dawn", "Take prophylactic antimalarials when traveling to endemic areas", "Eliminate standing water"],
+    "basic_treatment": ["Artemisinin-based combination therapy (ACT)", "Chloroquine (where still effective)", "Hospitalization for severe malaria"],
+    "when_to_see_doctor": "Immediately if you suspect malaria — it is a medical emergency. Seek care within 24 hours of symptom onset."
+  },
+  "dengue": {
+    "name": "Dengue Fever",
+    "causes": ["Dengue virus transmitted by Aedes aegypti mosquito"],
+    "symptoms": ["Sudden high fever (40°C/104°F)", "Severe headache", "Pain behind the eyes", "Muscle and joint pain", "Skin rash", "Mild bleeding (nosebleed, gum bleed)", "Nausea"],
+    "precautions": ["Use mosquito repellents and nets", "Wear protective clothing", "Eliminate mosquito breeding sites (standing water in pots, tires)", "Use window/door screens"],
+    "basic_treatment": ["No specific antiviral treatment — supportive care", "Rest and hydration (oral rehydration salts)", "Paracetamol for fever (avoid aspirin/ibuprofen)", "Monitor platelet count"],
+    "when_to_see_doctor": "Urgently if you develop warning signs: abdominal pain, persistent vomiting, bleeding, or rapid breathing."
+  },
+  "typhoid": {
+    "name": "Typhoid Fever",
+    "causes": ["Salmonella typhi bacteria via contaminated food or water"],
+    "symptoms": ["Sustained high fever (39-40°C)", "Headache", "Weakness", "Abdominal pain", "Loss of appetite", "Constipation or diarrhea", "Rose-colored rash"],
+    "precautions": ["Drink only treated or bottled water", "Eat only thoroughly cooked food", "Wash hands before eating and after using toilet", "Get typhoid vaccine before travel to high-risk areas"],
+    "basic_treatment": ["Antibiotics (ciprofloxacin, azithromycin, ceftriaxone)", "Hospitalization for severe cases", "Rehydration therapy"],
+    "when_to_see_doctor": "Immediately if you suspect typhoid — requires antibiotic treatment to prevent serious complications."
+  },
+  "common_cold": {
+    "name": "Common Cold",
+    "causes": ["Rhinovirus (most common cause)", "Other viruses: coronavirus, RSV", "Spread via respiratory droplets or contaminated surfaces"],
+    "symptoms": ["Runny or stuffy nose", "Sore throat", "Cough", "Sneezing", "Mild headache", "Low-grade fever (usually in children)", "Mild fatigue"],
+    "precautions": ["Wash hands frequently", "Avoid close contact with infected individuals", "Don't touch face with unwashed hands", "Boost immunity with vitamin C and zinc"],
+    "basic_treatment": ["Rest and fluids", "OTC decongestants, antihistamines", "Paracetamol or ibuprofen for discomfort", "Saline nasal spray", "Honey-lemon tea for throat"],
+    "when_to_see_doctor": "If symptoms worsen after 7 days, you have high fever (>39°C), severe throat pain, or difficulty breathing."
+  },
+  "pneumonia": {
+    "name": "Pneumonia",
+    "causes": ["Bacterial (Streptococcus pneumoniae)", "Viral (flu, COVID-19)", "Fungal", "Aspiration of food or liquid", "Hospital-acquired infections"],
+    "symptoms": ["Cough with phlegm or pus", "Fever, chills", "Difficulty breathing", "Chest pain when breathing", "Fatigue", "Nausea, vomiting"],
+    "precautions": ["Get pneumonia and flu vaccines", "Practice good hand hygiene", "Don't smoke", "Maintain good overall health", "Treat respiratory infections promptly"],
+    "basic_treatment": ["Antibiotics for bacterial pneumonia", "Antiviral medications for viral pneumonia", "Rest and hydration", "Oxygen therapy if needed", "Hospitalization for severe cases"],
+    "when_to_see_doctor": "Immediately if you have difficulty breathing, chest pain, high fever, or bluish lips — pneumonia can be life-threatening."
+  },
+  "tuberculosis": {
+    "name": "Tuberculosis (TB)",
+    "causes": ["Mycobacterium tuberculosis bacteria", "Spread through airborne droplets from active TB patients"],
+    "symptoms": ["Persistent cough (3+ weeks)", "Coughing blood", "Night sweats", "Unexplained weight loss", "Fatigue", "Fever", "Chest pain"],
+    "precautions": ["Ensure good ventilation in living spaces", "Complete full course of TB treatment", "BCG vaccine for children", "Isolate active TB patients until non-infectious"],
+    "basic_treatment": ["6-month course of antibiotics (isoniazid, rifampicin, ethambutol, pyrazinamide)", "Never skip doses (risk of drug resistance)", "Directly Observed Therapy (DOT)"],
+    "when_to_see_doctor": "As soon as TB is suspected — it requires prompt diagnosis and a full supervised treatment course."
+  },
+  "arthritis": {
+    "name": "Arthritis",
+    "causes": ["Rheumatoid arthritis: Autoimmune attack on joints", "Osteoarthritis: Wear and tear of cartilage", "Gout: Uric acid crystal deposits", "Genetics, age, obesity"],
+    "symptoms": ["Joint pain and stiffness", "Swelling", "Reduced range of motion", "Morning stiffness", "Warmth and redness around joints"],
+    "precautions": ["Maintain healthy weight to reduce joint stress", "Low-impact exercise (swimming, cycling)", "Protect joints from overuse", "Eat anti-inflammatory foods"],
+    "basic_treatment": ["NSAIDs (ibuprofen) for inflammation", "Disease-modifying drugs for rheumatoid arthritis", "Physical therapy", "Hot/cold compresses"],
+    "when_to_see_doctor": "If joint pain is severe, you have sudden swelling, or symptoms significantly limit daily activity."
+  },
+  "heart_attack": {
+    "name": "Heart Attack",
+    "causes": ["Blockage of coronary artery by blood clot", "Buildup of plaque (atherosclerosis)", "Risk factors: hypertension, diabetes, high cholesterol, smoking, obesity"],
+    "symptoms": ["Chest pain or pressure", "Pain radiating to arm, jaw, or back", "Shortness of breath", "Sweating", "Nausea", "Light-headedness"],
+    "precautions": ["Quit smoking", "Control blood pressure, cholesterol, and diabetes", "Regular exercise and healthy diet", "Know the warning signs", "Regular cardiac check-ups"],
+    "basic_treatment": ["EMERGENCY: Call 911/ambulance immediately", "Aspirin if not allergic (while waiting for help)", "Angioplasty or bypass surgery", "Medications: thrombolytics, beta-blockers, statins"],
+    "when_to_see_doctor": "This is a MEDICAL EMERGENCY. Call emergency services immediately at first signs — do not drive yourself."
+  },
+  "hepatitis_a": {
+    "name": "Hepatitis A",
+    "causes": ["HAV virus via contaminated food or water", "Close contact with infected person"],
+    "symptoms": ["Fatigue", "Sudden nausea and vomiting", "Abdominal pain", "Jaundice (yellow skin/eyes)", "Dark urine", "Clay-colored stools", "Fever"],
+    "precautions": ["Hepatitis A vaccine (highly effective)", "Wash hands thoroughly after toilet use and before food preparation", "Drink clean/treated water", "Avoid raw shellfish from contaminated water"],
+    "basic_treatment": ["No specific antiviral treatment — supportive care", "Rest and adequate nutrition", "Avoid alcohol", "Usually resolves in 2-6 months"],
+    "when_to_see_doctor": "If you suspect hepatitis A — for testing, monitoring, and to protect others. Seek immediate care if you develop severe jaundice or confusion."
+  },
+  "urinary_tract_infection": {
+    "name": "Urinary Tract Infection (UTI)",
+    "causes": ["E. coli bacteria (most common)", "Improper wiping after toilet use", "Sexual activity", "Urinary catheters", "Kidney stones", "Suppressed immune system"],
+    "symptoms": ["Burning sensation during urination", "Frequent urge to urinate", "Cloudy or bloody urine", "Strong-smelling urine", "Pelvic pain", "Low-grade fever"],
+    "precautions": ["Drink plenty of water", "Urinate after sexual activity", "Wipe front to back", "Avoid harsh soaps near genital area", "Don't hold urine for long periods"],
+    "basic_treatment": ["Antibiotics (nitrofurantoin, trimethoprim)", "Increase fluid intake", "OTC pain relief (phenazopyridine) for symptom relief", "Cranberry juice may help prevent recurrence"],
+    "when_to_see_doctor": "Immediately if you have high fever, back/flank pain, or shaking chills — may indicate kidney infection."
+  },
+  "acne": {
+    "name": "Acne",
+    "causes": ["Excess sebum production", "Clogged hair follicles", "Bacterial infection (C. acnes)", "Hormonal changes", "Stress", "Certain medications"],
+    "symptoms": ["Blackheads and whiteheads", "Pimples", "Cysts or nodules", "Redness and inflammation", "Scarring in severe cases"],
+    "precautions": ["Wash face twice daily with gentle cleanser", "Don't squeeze or pop pimples", "Use non-comedogenic cosmetics", "Change pillowcases frequently", "Maintain healthy diet"],
+    "basic_treatment": ["Topical retinoids or benzoyl peroxide", "Salicylic acid cleansers", "Antibiotics for bacterial acne", "Hormonal therapy for women (oral contraceptives)", "Isotretinoin for severe cystic acne (prescription only)"],
+    "when_to_see_doctor": "If OTC treatments haven't worked after 3 months, or if acne is severe, cystic, or causing significant distress."
+  },
+  "varicose_veins": {
+    "name": "Varicose Veins",
+    "causes": ["Weakened or damaged vein valves", "Prolonged standing or sitting", "Pregnancy", "Obesity", "Age and genetics"],
+    "symptoms": ["Dark purple or blue veins visible under skin", "Aching or heaviness in legs", "Swelling", "Burning or throbbing sensation", "Itching around veins"],
+    "precautions": ["Avoid prolonged standing or sitting", "Elevate legs when resting", "Exercise regularly (walking, swimming)", "Maintain healthy weight", "Wear compression stockings"],
+    "basic_treatment": ["Compression stockings", "Sclerotherapy (injection treatment)", "Laser therapy", "Surgical stripping for severe cases"],
+    "when_to_see_doctor": "If you develop ulcers near ankles, severe swelling, or significant pain affecting daily life."
+  }
+}

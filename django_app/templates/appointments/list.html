@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}My Appointments — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <h1><span class="gradient-text">📋 My Appointments</span></h1>
+  <p>View all your booked consultations and their current status.</p>
+</div>
+<div class="appt-wrap">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+    <div class="badge badge-blue"><i class="fa-solid fa-calendar"></i> {{ appointments.count }} Appointment{{ appointments.count|pluralize }}</div>
+    <a href="{% url 'book_appointment' %}" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Book New</a>
+  </div>
+  {% if appointments %}
+  <div class="card" style="overflow:auto;">
+    <table class="appt-table" style="min-width:700px;">
+      <thead><tr>
+        <th>Name</th><th>Age</th><th>Problem</th><th>Date</th><th>Time</th><th>Status</th>
+      </tr></thead>
+      <tbody>
+        {% for appt in appointments %}
+        <tr>
+          <td><strong>{{ appt.name }}</strong><br><span style="font-size:0.75rem;color:var(--text-muted);">{{ appt.email }}</span></td>
+          <td>{{ appt.age }}</td>
+          <td>{{ appt.problem|truncatechars:50 }}</td>
+          <td>{{ appt.preferred_date|date:"d M Y" }}</td>
+          <td>{{ appt.preferred_time|time:"h:i A" }}</td>
+          <td><span class="status-{{ appt.status }}">⬤ {{ appt.get_status_display }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="card">
+    <div class="empty-state">
+      <span class="empty-icon">📅</span>
+      <h3>No Appointments Yet</h3>
+      <p>You haven't booked any consultations yet.</p>
+      <a href="{% url 'book_appointment' %}" class="btn btn-primary" style="margin-top:16px;"><i class="fa-solid fa-calendar-plus"></i> Book Now</a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

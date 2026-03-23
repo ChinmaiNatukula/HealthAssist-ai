@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}Book Appointment — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <h1><span class="gradient-text">📅 Book Appointment</span></h1>
+  <p>Schedule a doctor consultation easily. We'll confirm your booking shortly.</p>
+</div>
+
+<div class="appt-wrap">
+  <div class="appt-grid">
+    <!-- Booking Form -->
+    <div class="card" style="padding:0;">
+      <div class="card-header">
+        <div class="card-icon icon-orange">📝</div>
+        <div><div class="card-title">Appointment Form</div><div class="card-subtitle">Fill in your details</div></div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <form method="post">
+          {% csrf_token %}
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              {{ form.name }}
+            </div>
+            <div class="form-group">
+              <label class="form-label">Age *</label>
+              {{ form.age }}
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              {{ form.email }}
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              {{ form.phone }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Problem Description *</label>
+            {{ form.problem }}
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-group">
+              <label class="form-label"><i class="fa-solid fa-calendar"></i> Preferred Date *</label>
+              {{ form.preferred_date }}
+            </div>
+            <div class="form-group">
+              <label class="form-label"><i class="fa-solid fa-clock"></i> Preferred Time *</label>
+              {{ form.preferred_time }}
+            </div>
+          </div>
+          {% if form.errors %}
+          <div class="error-box">
+            {% for field in form %}{% for e in field.errors %}<div>{{ field.label }}: {{ e }}</div>{% endfor %}{% endfor %}
+          </div>
+          {% endif %}
+          <button type="submit" class="btn btn-primary btn-full">
+            <i class="fa-solid fa-calendar-check"></i> Confirm Appointment
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div>
+      <div class="card" style="padding:28px;margin-bottom:16px;">
+        <h3 style="font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;"><span>ℹ️</span> What to Expect</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
+          <li style="display:flex;gap:12px;align-items:flex-start;font-size:0.875rem;color:var(--text-muted);">
+            <span style="color:var(--accent);font-weight:700;flex-shrink:0;">01</span>
+            Submit your appointment request using the form.
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;font-size:0.875rem;color:var(--text-muted);">
+            <span style="color:var(--accent);font-weight:700;flex-shrink:0;">02</span>
+            Our team reviews your request within 1 hour.
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;font-size:0.875rem;color:var(--text-muted);">
+            <span style="color:var(--accent);font-weight:700;flex-shrink:0;">03</span>
+            You receive a confirmation via email/phone.
+          </li>
+          <li style="display:flex;gap:12px;align-items:flex-start;font-size:0.875rem;color:var(--text-muted);">
+            <span style="color:var(--accent);font-weight:700;flex-shrink:0;">04</span>
+            Attend your consultation at the scheduled time.
+          </li>
+        </ul>
+      </div>
+
+      <a href="{% url 'my_appointments' %}" class="card" style="padding:24px;display:flex;align-items:center;gap:16px;text-decoration:none;transition:var(--transition);">
+        <span style="font-size:2rem;">📋</span>
+        <div>
+          <div style="font-weight:700;margin-bottom:4px;">My Appointments</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);">View all your booked appointments & status</div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="margin-left:auto;color:var(--text-faint);"></i>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

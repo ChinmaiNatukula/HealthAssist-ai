@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block title %}Health Precautions — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <h1><span class="gradient-text">🛡️ Health Precautions</span></h1>
+  <p>Preventive health guidelines, diet suggestions, and lifestyle tips for common conditions.</p>
+</div>
+
+<div class="prec-wrap">
+  <div class="prec-grid">
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-blue">🥗 Nutrition</span>
+      <h3>🍎 Healthy Diet Tips</h3>
+      <p>A balanced diet is the foundation of good health and disease prevention.</p>
+      <ul class="prec-list">
+        <li>Fill half your plate with colorful vegetables and fruits</li>
+        <li>Choose whole grains over refined/processed grains</li>
+        <li>Include lean protein: eggs, fish, legumes, tofu</li>
+        <li>Drink 8–10 glasses of water daily</li>
+        <li>Limit sugar, salt, and saturated/trans fats</li>
+        <li>Eat 3 balanced meals; avoid skipping breakfast</li>
+        <li>Limit ultra-processed foods and sugary drinks</li>
+      </ul>
+    </div>
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-green">🏃 Activity</span>
+      <h3>💪 Exercise & Lifestyle</h3>
+      <p>Regular physical activity prevents chronic diseases and boosts mental health.</p>
+      <ul class="prec-list">
+        <li>Aim for 150 min/week of moderate aerobic exercise</li>
+        <li>Include strength training at least 2x per week</li>
+        <li>Take short walks after meals to regulate blood sugar</li>
+        <li>Get 7–9 hours of quality sleep nightly</li>
+        <li>Reduce sedentary time — stand/move every 30 min</li>
+        <li>Quit smoking; limit alcohol to moderate amounts</li>
+        <li>Manage stress with meditation, yoga, or deep breathing</li>
+      </ul>
+    </div>
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-orange">💊 Prevention</span>
+      <h3>❤️ Heart Disease Prevention</h3>
+      <p>Cardiovascular disease is the leading cause of death — but highly preventable.</p>
+      <ul class="prec-list">
+        <li>Monitor and control blood pressure (target: below 120/80)</li>
+        <li>Keep LDL cholesterol in healthy range through diet</li>
+        <li>Exercise aerobically for 30+ min most days</li>
+        <li>Maintain healthy body weight (BMI 18.5–24.9)</li>
+        <li>Avoid smoking — it doubles heart attack risk</li>
+        <li>Limit sodium intake to under 2,300 mg/day</li>
+        <li>Get annual cardiovascular check-ups after age 40</li>
+      </ul>
+    </div>
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-purple">🧬 Chronic</span>
+      <h3>🩸 Diabetes Management</h3>
+      <p>Diabetes is manageable with consistent lifestyle changes and monitoring.</p>
+      <ul class="prec-list">
+        <li>Monitor blood glucose levels before and after meals</li>
+        <li>Follow a low-glycemic index (GI) diet</li>
+        <li>Exercise regularly — it improves insulin sensitivity</li>
+        <li>Take medications/insulin consistently as prescribed</li>
+        <li>Get HbA1c test every 3 months</li>
+        <li>Inspect feet daily for cuts/sores (prevents complications)</li>
+        <li>Avoid sugary drinks, white rice, and processed foods</li>
+      </ul>
+    </div>
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-blue">🧠 Mental</span>
+      <h3>🧘 Mental Health & Wellbeing</h3>
+      <p>Mental health is just as important as physical health. Prioritize it.</p>
+      <ul class="prec-list">
+        <li>Practice mindfulness or meditation for 10 min daily</li>
+        <li>Maintain social connections with friends and family</li>
+        <li>Talk to a therapist or counselor when overwhelmed</li>
+        <li>Set healthy work-life boundaries and take breaks</li>
+        <li>Limit social media consumption to reduce anxiety</li>
+        <li>Regular exercise significantly reduces depression symptoms</li>
+        <li>Seek help — mental illness is treatable, not a weakness</li>
+      </ul>
+    </div>
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-green">🦠 Infection</span>
+      <h3>😷 Infection Prevention</h3>
+      <p>Simple hygiene practices dramatically reduce the spread of infectious diseases.</p>
+      <ul class="prec-list">
+        <li>Wash hands for 20+ seconds with soap before meals</li>
+        <li>Stay up to date with recommended vaccinations</li>
+        <li>Cover mouth/nose when coughing or sneezing</li>
+        <li>Avoid touching eyes, nose, and mouth with unwashed hands</li>
+        <li>Disinfect frequently touched surfaces regularly</li>
+        <li>Wear a mask when sick in public spaces</li>
+        <li>Cook food to proper temperatures; avoid raw/undercooked meat</li>
+      </ul>
+    </div>
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-red">☀️ Skin</span>
+      <h3>🧴 Skin Health & Sun Safety</h3>
+      <p>Proper skin care prevents infections, early aging, and skin cancers.</p>
+      <ul class="prec-list">
+        <li>Apply broad-spectrum SPF 30+ sunscreen every day</li>
+        <li>Moisturize daily, especially after bathing</li>
+        <li>Avoid prolonged sun exposure between 10 AM – 4 PM</li>
+        <li>Perform monthly self-skin checks for new or changing moles</li>
+        <li>Stay hydrated — dehydration affects skin elasticity</li>
+        <li>Use fragrance-free, hypoallergenic products for sensitive skin</li>
+        <li>See a dermatologist annually for a professional skin cancer screening</li>
+      </ul>
+    </div>
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-orange">🚨 Emergency</span>
+      <h3>🚑 When to Seek Emergency Care</h3>
+      <p>Recognizing emergencies early can save lives. Don't delay — call for help.</p>
+      <ul class="prec-list">
+        <li>Chest pain or pressure — possible heart attack (102/108)</li>
+        <li>Sudden severe headache with stiff neck — possible meningitis</li>
+        <li>Difficulty breathing or choking</li>
+        <li>Sudden loss of vision, speech, or movement — possible stroke</li>
+        <li>Uncontrolled bleeding or deep wounds</li>
+        <li>Overdose or poisoning — call Poison Control immediately</li>
+        <li>Loss of consciousness or severe allergic reaction (anaphylaxis)</li>
+      </ul>
+    </div>
+
+    <div class="card prec-card fade-in">
+      <span class="prec-tip-label badge badge-purple">👁️ Screening</span>
+      <h3>🏥 Preventive Screenings</h3>
+      <p>Regular health check-ups detect diseases early when they're most treatable.</p>
+      <ul class="prec-list">
+        <li>Annual blood pressure check for all adults over 18</li>
+        <li>Fasting blood glucose every 3 years from age 35</li>
+        <li>Lipid panel (cholesterol) every 5 years from age 20</li>
+        <li>Eye exam every 1–2 years, especially for diabetics</li>
+        <li>Dental check-up every 6 months</li>
+        <li>Women: cervical pap smear every 3 years from age 21</li>
+        <li>Colon cancer screening from age 45–50 as recommended</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="dashboard-wrap">
+  <!-- Greeting Card -->
+  <div class="card greeting-card fade-in">
+    <div>
+      <h2>Welcome back, {{ user.first_name|default:user.username }}! 👋</h2>
+      <p>Your AI health companion is ready. What would you like to check today?</p>
+    </div>
+    <div class="badge badge-green"><i class="fa-solid fa-circle-check"></i> Health Dashboard Active</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="card stat-card fade-in">
+      <div class="stat-num gradient-text">🩺</div>
+      <div class="stat-label">Symptom Checker</div>
+    </div>
+    <div class="card stat-card fade-in">
+      <div class="stat-num" style="background:var(--gradient-green);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">🔬</div>
+      <div class="stat-label">Skin Disease AI</div>
+    </div>
+    <div class="card stat-card fade-in">
+      <div class="stat-num" style="background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">🤖</div>
+      <div class="stat-label">AI Chatbot</div>
+    </div>
+    <div class="card stat-card fade-in">
+      <div class="stat-num" style="color:var(--orange);">📅</div>
+      <div class="stat-label">Appointments</div>
+    </div>
+  </div>
+
+  <!-- Feature Cards -->
+  <div class="features-grid">
+    <a href="{% url 'symptom_checker' %}" class="card feature-card fade-in" style="text-decoration:none;">
+      <div class="feat-icon">🩺</div>
+      <h3>Symptom Checker</h3>
+      <p>Enter your symptoms and our AI analyzes them to predict possible conditions with severity ratings and recommended next steps.</p>
+      <div class="btn btn-primary btn-sm" style="width:fit-content;">Analyze Symptoms <i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+    <a href="{% url 'skin_predictor' %}" class="card feature-card fade-in" style="text-decoration:none;">
+      <div class="feat-icon">🔬</div>
+      <h3>Skin Disease Predictor</h3>
+      <p>Upload a photo of your skin condition. Our AI analyzes it and provides a diagnosis with confidence score and precautions.</p>
+      <div class="btn btn-green btn-sm" style="width:fit-content;">Upload Image <i class="fa-solid fa-upload"></i></div>
+    </a>
+    <a href="{% url 'chatbot' %}" class="card feature-card fade-in" style="text-decoration:none;">
+      <div class="feat-icon">🤖</div>
+      <h3>AI Health Chatbot</h3>
+      <p>Ask our intelligent chatbot any health question — from symptoms to diet advice, medication info, and emergency guidance.</p>
+      <div class="btn btn-sm" style="background:var(--gradient-purple);color:white;width:fit-content;">Start Chatting <i class="fa-solid fa-comment-medical"></i></div>
+    </a>
+    <a href="{% url 'book_appointment' %}" class="card feature-card fade-in" style="text-decoration:none;">
+      <div class="feat-icon">📅</div>
+      <h3>Book Appointment</h3>
+      <p>Schedule a doctor consultation easily. Fill in your details, problem, and preferred time — we'll confirm your booking instantly.</p>
+      <div class="btn btn-sm" style="background:var(--gradient-warm);color:white;width:fit-content;">Book Now <i class="fa-solid fa-calendar-plus"></i></div>
+    </a>
+  </div>
+
+  <!-- Precautions Quick Link -->
+  <div class="card" style="margin-top:20px;padding:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span style="font-size:2rem;">🛡️</span>
+      <div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:4px;">Health Precautions & Tips</h3>
+        <p style="font-size:0.82rem;color:var(--text-muted);">Browse disease precautions, diet tips, and preventive health measures.</p>
+      </div>
+    </div>
+    <a href="{% url 'precautions' %}" class="btn btn-secondary btn-sm">
+      <i class="fa-solid fa-shield-heart"></i> View Precautions
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Register — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="card auth-card">
+    <div class="auth-body">
+      <div class="auth-brand">
+        <span class="brand-icon">💊</span>
+        <h1>Join HealthAssist AI</h1>
+        <p>Create your free account to get started</p>
+      </div>
+
+      {% if form.errors %}
+      <div class="error-box">
+        <i class="fa-solid fa-circle-xmark"></i>
+        {% for field in form %}{% for error in field.errors %}<div>{{ field.label }}: {{ error }}</div>{% endfor %}{% endfor %}
+        {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+      </div>
+      {% endif %}
+
+      <form method="post">
+        {% csrf_token %}
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input class="form-input" type="text" name="first_name" placeholder="First name" value="{{ form.first_name.value|default:'' }}" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input class="form-input" type="text" name="last_name" placeholder="Last name" value="{{ form.last_name.value|default:'' }}"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fa-solid fa-user"></i> Username</label>
+          <input class="form-input" type="text" name="username" placeholder="Choose a username" value="{{ form.username.value|default:'' }}" required autocomplete="username"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fa-solid fa-envelope"></i> Email</label>
+          <input class="form-input" type="email" name="email" placeholder="your@email.com" value="{{ form.email.value|default:'' }}" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fa-solid fa-lock"></i> Password</label>
+          <input class="form-input" type="password" name="password1" placeholder="Create a password" required autocomplete="new-password"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fa-solid fa-lock"></i> Confirm Password</label>
+          <input class="form-input" type="password" name="password2" placeholder="Repeat your password" required autocomplete="new-password"/>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" style="margin-top:8px;">
+          <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="{% url 'login' %}">Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

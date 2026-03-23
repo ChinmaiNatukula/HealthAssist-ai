@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="HealthAssist AI — Your intelligent healthcare companion for symptom checking, skin disease detection, and AI health guidance."/>
+  <title>{% block title %}HealthAssist AI{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="page-bg">
+
+  {% if user.is_authenticated %}
+  <!-- ── Navbar ── -->
+  <nav class="navbar" id="navbar">
+    <a href="{% url 'dashboard' %}" class="nav-brand">
+      <span class="brand-icon">🏥</span> HealthAssist AI
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="{% url 'symptom_checker' %}" class="{% if request.resolver_match.url_name == 'symptom_checker' %}active{% endif %}">
+        <i class="fa-solid fa-stethoscope"></i> Symptom Checker
+      </a></li>
+      <li><a href="{% url 'skin_predictor' %}" class="{% if request.resolver_match.url_name == 'skin_predictor' %}active{% endif %}">
+        <i class="fa-solid fa-microscope"></i> Skin Predictor
+      </a></li>
+      <li><a href="{% url 'chatbot' %}" class="{% if request.resolver_match.url_name == 'chatbot' %}active{% endif %}">
+        <i class="fa-solid fa-robot"></i> AI Chatbot
+      </a></li>
+      <li><a href="{% url 'book_appointment' %}" class="{% if 'appointment' in request.resolver_match.url_name %}active{% endif %}">
+        <i class="fa-solid fa-calendar-check"></i> Book Appointment
+      </a></li>
+      <li><a href="{% url 'precautions' %}" class="{% if request.resolver_match.url_name == 'precautions' %}active{% endif %}">
+        <i class="fa-solid fa-shield-heart"></i> Precautions
+      </a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="nav-user">
+        <div class="avatar">{{ user.first_name|first|upper }}{{ user.last_name|first|upper }}</div>
+        <span>{{ user.get_full_name|default:user.username }}</span>
+      </div>
+      <a href="{% url 'logout' %}" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      <div class="hamburger" id="hamburger" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+  {% endif %}
+
+  <!-- ── Messages/Toasts ── -->
+  {% if messages %}
+  <div class="toast-container" id="toastContainer">
+    {% for msg in messages %}
+    <div class="toast {{ msg.tags }}" id="toast-{{ forloop.counter }}">
+      {% if msg.tags == 'success' %}<i class="fa-solid fa-circle-check"></i>
+      {% elif msg.tags == 'danger' %}<i class="fa-solid fa-circle-xmark"></i>
+      {% elif msg.tags == 'warning' %}<i class="fa-solid fa-triangle-exclamation"></i>
+      {% else %}<i class="fa-solid fa-circle-info"></i>{% endif %}
+      {{ msg }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- ── Main Content ── -->
+  <main class="{% if user.is_authenticated %}content-wrap{% endif %}">
+    {% block content %}{% endblock %}
+  </main>
+
+</div>
+
+<script src="{% static 'js/app.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block title %}Skin Disease Predictor — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <h1><span class="gradient-text">🔬 Skin Disease Predictor</span></h1>
+  <p>Upload a photo of your skin condition. Our AI will analyze it and provide predictions with precautions.</p>
+</div>
+
+<div class="sp-wrap">
+  <!-- Upload Panel -->
+  <div class="card" style="padding:0;">
+    <div class="card-header">
+      <div class="card-icon icon-green">📤</div>
+      <div><div class="card-title">Upload Skin Image</div><div class="card-subtitle">JPG, PNG, WEBP — max 10MB</div></div>
+    </div>
+    <div class="card-body" style="padding-top:0;">
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="imageInput" accept="image/*" onchange="previewImage(this)"/>
+        <span class="upload-icon">🖼️</span>
+        <h3>Drop image here or click to browse</h3>
+        <p>Clear, well-lit photos give best results</p>
+      </div>
+      <img id="previewImg" class="preview-img" src="" alt="Preview"/>
+      <button class="btn btn-green btn-full" onclick="predictSkin()" id="predictBtn" style="margin-top:16px;" disabled>
+        <i class="fa-solid fa-magnifying-glass"></i> Analyze Image
+      </button>
+    </div>
+  </div>
+
+  <!-- Results Panel -->
+  <div>
+    <!-- Empty state -->
+    <div class="card" id="spEmpty" style="padding:60px 24px;">
+      <div class="empty-state">
+        <span class="empty-icon">🔬</span>
+        <h3>No Image Analyzed</h3>
+        <p>Upload a skin image to get AI-powered disease predictions.</p>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="card" id="spLoading" style="padding:60px 24px;text-align:center;display:none;">
+      <div class="spinner"></div>
+      <p style="color:var(--text-muted);">Analyzing your image...</p>
+    </div>
+
+    <!-- Primary Result -->
+    <div class="card" id="spResult" style="padding:0;display:none;">
+      <div class="card-header">
+        <div class="card-icon icon-green">🔬</div>
+        <div><div class="card-title">AI Diagnosis</div><div class="card-subtitle">Primary prediction</div></div>
+      </div>
+      <div class="card-body" style="padding-top:0;">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+          <span id="spIcon" style="font-size:2.5rem;"></span>
+          <div>
+            <h2 id="spDisease" style="font-size:1.2rem;font-weight:800;margin-bottom:6px;"></h2>
+            <span id="spSev" class="severity-badge"></span>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--text-muted);margin-bottom:4px;">
+            <span>Confidence Score</span>
+            <span id="spConf">0%</span>
+          </div>
+          <div class="confidence-bar"><div class="confidence-fill" id="spConfFill" style="width:0%;background:var(--gradient-green);"></div></div>
+        </div>
+        <p id="spDesc" style="font-size:0.875rem;color:var(--text-muted);margin-bottom:16px;line-height:1.7;"></p>
+        <div>
+          <div style="font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Precautions & Care</div>
+          <ul class="precaution-list" id="spPrecautions"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alternative predictions -->
+    <div id="spAlts" style="margin-top:16px;display:none;">
+      <div style="font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;padding-left:4px;">Other Possibilities</div>
+      <div id="spAltsList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const uploadZone = document.getElementById('uploadZone');
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => { e.preventDefault(); uploadZone.classList.remove('drag-over'); const f = e.dataTransfer.files[0]; if (f) { document.getElementById('imageInput').files = e.dataTransfer.files; previewImage(document.getElementById('imageInput')); } });
+
+function previewImage(input) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = document.getElementById('previewImg');
+    img.src = e.target.result;
+    img.style.display = 'block';
+    document.getElementById('predictBtn').disabled = false;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+async function predictSkin() {
+  const fileInput = document.getElementById('imageInput');
+  if (!fileInput.files || !fileInput.files[0]) { showToast('Please select an image first.', 'error'); return; }
+  document.getElementById('spEmpty').style.display = 'none';
+  document.getElementById('spResult').style.display = 'none';
+  document.getElementById('spAlts').style.display = 'none';
+  document.getElementById('spLoading').style.display = 'block';
+
+  const formData = new FormData();
+  formData.append('image', fileInput.files[0]);
+  formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+
+  try {
+    const res = await fetch('{% url "skin_predict" %}', { method: 'POST', headers: {'X-CSRFToken': getCookie('csrftoken')}, body: formData });
+    const data = await res.json();
+    document.getElementById('spLoading').style.display = 'none';
+    if (data.success) displaySkinResult(data);
+    else showToast('Prediction failed.', 'error');
+  } catch(e) {
+    document.getElementById('spLoading').style.display = 'none';
+    document.getElementById('spEmpty').style.display = 'block';
+    showToast('Error analyzing image.', 'error');
+  }
+}
+
+function displaySkinResult(data) {
+  const p = data.primary;
+  document.getElementById('spIcon').textContent = p.icon;
+  document.getElementById('spDisease').textContent = p.name;
+  const sev = document.getElementById('spSev');
+  const cls = {mild:'sev-mild',moderate:'sev-moderate',high:'sev-high',critical:'sev-critical'}[p.severity] || 'sev-unknown';
+  sev.className = `severity-badge ${cls}`;
+  sev.textContent = p.severity.toUpperCase();
+  document.getElementById('spConf').textContent = `${p.confidence}%`;
+  setTimeout(() => { document.getElementById('spConfFill').style.width = `${p.confidence}%`; }, 100);
+  document.getElementById('spDesc').textContent = p.description;
+  document.getElementById('spPrecautions').innerHTML = p.precautions.map(pr => `<li>${pr}</li>`).join('');
+  document.getElementById('spResult').style.display = 'block';
+
+  if (data.alternatives && data.alternatives.length) {
+    document.getElementById('spAltsList').innerHTML = data.alternatives.map(a => `
+      <div class="card alt-result">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <h4>${a.icon} ${a.name}</h4>
+          <span class="badge badge-blue">${a.confidence}%</span>
+        </div>
+        <div class="confidence-bar" style="margin-top:8px;"><div class="confidence-fill" style="width:${a.confidence}%;background:var(--gradient-purple);"></div></div>
+      </div>`).join('');
+    document.getElementById('spAlts').style.display = 'block';
+  }
+}
+</script>
+{% endblock %}

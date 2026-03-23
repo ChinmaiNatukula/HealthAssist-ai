@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block title %}AI Health Chatbot — HealthAssist AI{% endblock %}
+{% block content %}
+<div class="page-hero">
+  <h1><span class="gradient-text">🤖 AI Health Chatbot</span></h1>
+  <p>Ask any health question — symptoms, diet, medications, emergency advice, and more.</p>
+</div>
+
+<div class="chat-wrap">
+  <!-- Quick Query Chips -->
+  <div class="quick-queries">
+    <button class="quick-query" onclick="sendQuick('I have a fever, what should I do?')">🌡️ Fever tips</button>
+    <button class="quick-query" onclick="sendQuick('What are good foods for diabetes?')">🍽️ Diabetic diet</button>
+    <button class="quick-query" onclick="sendQuick('How can I manage stress?')">🧘 Stress relief</button>
+    <button class="quick-query" onclick="sendQuick('I have chest pain, is it serious?')">❤️ Chest pain</button>
+    <button class="quick-query" onclick="sendQuick('What vitamins should I take daily?')">💊 Vitamins</button>
+    <button class="quick-query" onclick="sendQuick('How much water should I drink?')">💧 Hydration</button>
+  </div>
+
+  <div class="card chat-card" style="margin-top:12px;">
+    <div class="chat-messages" id="chatMessages">
+      <!-- Welcome message -->
+      <div class="bubble-row">
+        <div class="avatar-sm avatar-bot">🤖</div>
+        <div class="bubble bot">
+          <strong style="display:block;font-size:0.72rem;color:var(--text-muted);margin-bottom:5px;">HEALTHASSIST AI</strong>
+          Hello! 👋 I'm your HealthAssist AI chatbot. I can answer health questions, provide medical information, give diet advice, and guide you on when to see a doctor.<br><br>
+          <em style="color:var(--text-muted);font-size:0.82rem;">Try asking: "What should I do for a fever?" or "Foods for diabetes?"</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" class="form-input" placeholder="Ask a health question..." onkeydown="if(event.key==='Enter')sendMessage()"/>
+      <button class="btn btn-primary" onclick="sendMessage()" id="sendBtn">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+  <p style="text-align:center;font-size:0.75rem;color:var(--text-faint);margin-top:12px;">
+    ⚠️ AI-generated information only. Not a substitute for professional medical advice.
+  </p>
+</div>
+
+<script>
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+let isTyping = false;
+
+function appendBubble(role, text) {
+  const row = document.createElement('div');
+  row.className = `bubble-row ${role}`;
+  const initials = role === 'user'
+    ? '{{ user.first_name|first|upper }}{{ user.last_name|first|upper }}'
+    : '🤖';
+  const avatarClass = role === 'user' ? 'avatar-user' : 'avatar-bot';
+  const labelText = role === 'user' ? '{{ user.username|upper }}' : 'HEALTHASSIST AI';
+
+  // Convert markdown-ish bold and newlines
+  const formatted = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+  row.innerHTML = `
+    <div class="avatar-sm ${avatarClass}">${initials}</div>
+    <div class="bubble ${role}">
+      <strong style="display:block;font-size:0.72rem;color:${role==='user'?'rgba(255,255,255,0.7)':'var(--text-muted)'};margin-bottom:5px;">${labelText}</strong>
+      ${formatted}
+    </div>`;
+  chatMessages.appendChild(row);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping() {
+  const row = document.createElement('div');
+  row.className = 'bubble-row';
+  row.id = 'typingRow';
+  row.innerHTML = `<div class="avatar-sm avatar-bot">🤖</div><div class="bubble bot"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+  chatMessages.appendChild(row);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function hideTyping() {
+  const el = document.getElementById('typingRow');
+  if (el) el.remove();
+}
+
+async function sendMessage() {
+  const msg = chatInput.value.trim();
+  if (!msg || isTyping) return;
+  chatInput.value = '';
+  appendBubble('user', msg);
+  isTyping = true;
+  document.getElementById('sendBtn').disabled = true;
+  showTyping();
+
+  try {
+    const res = await fetch('{% url "chat_api" %}', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken')},
+      body: JSON.stringify({message: msg})
+    });
+    const data = await res.json();
+    hideTyping();
+    appendBubble('bot', data.response || 'Sorry, I could not process that.');
+  } catch(e) {
+    hideTyping();
+    appendBubble('bot', 'Sorry, there was an error. Please try again.');
+  } finally {
+    isTyping = false;
+    document.getElementById('sendBtn').disabled = false;
+    chatInput.focus();
+  }
+}
+
+function sendQuick(text) {
+  chatInput.value = text;
+  sendMessage();
+}
+</script>
+{% endblock %}
